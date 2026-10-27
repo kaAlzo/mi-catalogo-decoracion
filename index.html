@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mi catálogo de productos</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f5f6f8;
+      color: #222;
+    }
+    header {
+      background: #172554;
+      color: white;
+      padding: 28px 20px;
+      text-align: center;
+    }
+    main {
+      max-width: 1000px;
+      margin: auto;
+      padding: 24px 16px;
+    }
+    input {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+    .productos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 18px;
+    }
+    .producto {
+      background: white;
+      border-radius: 10px;
+      padding: 14px;
+      box-shadow: 0 2px 8px #0001;
+    }
+    .producto img {
+      width: 100%;
+      height: 180px;
+      object-fit: contain;
+      border-radius: 6px;
+    }
+    .precio {
+      font-size: 21px;
+      font-weight: bold;
+      color: #166534;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Mi catálogo</h1>
+    <p>Conoce nuestros productos</p>
+  </header>
+
+  <main>
+    <input id="buscar" placeholder="Buscar productos..."
+           oninput="filtrar()">
+    <div id="productos" class="productos"></div>
+  </main>
+
+  <script>
+    const inventario = [
+      {
+        nombre: "Producto de ejemplo 1",
+        codigo: "PROD-001",
+        precio: 199,
+        imagen: "https://placehold.co/400x300?text=Producto+1"
+      },
+      {
+        nombre: "Producto de ejemplo 2",
+        codigo: "PROD-002",
+        precio: 299,
+        imagen: "https://placehold.co/400x300?text=Producto+2"
+      },
+      {
+        nombre: "Producto de ejemplo 3",
+        codigo: "PROD-003",
+        precio: 399,
+        imagen: "https://placehold.co/400x300?text=Producto+3"
+      }
+    ];
+
+    function filtrar() {
+      const busqueda = document.getElementById("buscar")
+        .value.toLowerCase();
+
+      const resultados = inventario.filter(p =>
+        p.nombre.toLowerCase().includes(busqueda) ||
+        p.codigo.toLowerCase().includes(busqueda)
+      );
+
+      document.getElementById("productos").innerHTML =
+        resultados.map(p => `
+          <article class="producto">
+            <img src="${p.imagen}" alt="${p.nombre}">
+            <h3>${p.nombre}</h3>
+            <p>Código: ${p.codigo}</p>
+            <p class="precio">$${p.precio.toLocaleString("es-MX", {
+              minimumFractionDigits: 2
+            })} MXN</p>
+          </article>
+        `).join("");
+    }
+
+    filtrar();
+  </script>
+</body>
+</html>
