@@ -3,116 +3,412 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Mi catálogo de productos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Catálogo | Encuentra tus favoritos</title>
+
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      background: #f5f6f8;
-      color: #222;
+    :root {
+      --fondo: #f7f7fb;
+      --texto: #24243a;
+      --principal: #7057e8;
+      --acento: #ffb84d;
+      --blanco: #ffffff;
     }
-    header {
-      background: #172554;
-      color: white;
-      padding: 28px 20px;
-      text-align: center;
-    }
-    main {
-      max-width: 1000px;
-      margin: auto;
-      padding: 24px 16px;
-    }
-    input {
+
+    * {
       box-sizing: border-box;
-      width: 100%;
-      padding: 12px;
-      margin-bottom: 20px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 16px;
     }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: var(--fondo);
+      color: var(--texto);
+    }
+
+    header {
+      background: var(--blanco);
+      padding: 20px 6%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      box-shadow: 0 2px 15px #24243a0b;
+    }
+
+    .logo {
+      font-size: 23px;
+      font-weight: 800;
+      color: var(--principal);
+    }
+
+    .logo span {
+      color: var(--texto);
+    }
+
+    .contacto {
+      text-decoration: none;
+      background: #20b866;
+      color: white;
+      padding: 12px 18px;
+      border-radius: 25px;
+      font-weight: bold;
+    }
+
+    .hero {
+      margin: 28px auto;
+      width: 90%;
+      padding: 55px 7%;
+      border-radius: 24px;
+      background: linear-gradient(120deg, #7057e8, #a58bff);
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero h1 {
+      font-size: clamp(32px, 5vw, 52px);
+      max-width: 600px;
+      margin: 0 0 15px;
+    }
+
+    .hero p {
+      font-size: 17px;
+      line-height: 1.6;
+      max-width: 520px;
+    }
+
+    .hero .etiqueta {
+      display: inline-block;
+      background: var(--acento);
+      color: #35264e;
+      padding: 8px 13px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: bold;
+      margin-bottom: 18px;
+    }
+
+    main {
+      width: 90%;
+      max-width: 1200px;
+      margin: 45px auto;
+    }
+
+    .titulo-seccion {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .titulo-seccion h2 {
+      font-size: 29px;
+      margin-bottom: 8px;
+    }
+
+    .buscador {
+      width: 100%;
+      max-width: 340px;
+      padding: 14px 16px;
+      border: 1px solid #e1dff0;
+      border-radius: 14px;
+      font-size: 15px;
+      outline-color: var(--principal);
+    }
+
+    .filtros {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 24px 0;
+    }
+
+    .filtro {
+      border: 1px solid #e4e0f3;
+      background: white;
+      color: var(--texto);
+      padding: 10px 17px;
+      border-radius: 22px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .filtro.activo {
+      background: var(--principal);
+      color: white;
+      border-color: var(--principal);
+    }
+
     .productos {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-      gap: 18px;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 24px;
     }
+
     .producto {
       background: white;
-      border-radius: 10px;
-      padding: 14px;
-      box-shadow: 0 2px 8px #0001;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 5px 22px #24243a0b;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
+
+    .producto:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 28px #24243a14;
+    }
+
     .producto img {
       width: 100%;
-      height: 180px;
-      object-fit: contain;
-      border-radius: 6px;
+      height: 230px;
+      object-fit: cover;
+      display: block;
+      background: #eeeaf8;
     }
-    .precio {
-      font-size: 21px;
+
+    .producto-info {
+      padding: 19px;
+    }
+
+    .categoria {
+      color: var(--principal);
+      font-size: 12px;
       font-weight: bold;
-      color: #166534;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .producto h3 {
+      margin: 9px 0;
+      font-size: 19px;
+    }
+
+    .descripcion {
+      color: #77778b;
+      font-size: 14px;
+      line-height: 1.5;
+      min-height: 42px;
+    }
+
+    .precio {
+      font-size: 23px;
+      font-weight: 800;
+      margin: 17px 0;
+    }
+
+    .pedir {
+      display: block;
+      text-align: center;
+      background: var(--texto);
+      color: white;
+      text-decoration: none;
+      padding: 13px;
+      border-radius: 12px;
+      font-weight: bold;
+    }
+
+    .pedir:hover {
+      background: var(--principal);
+    }
+
+    .sin-resultados {
+      display: none;
+      padding: 30px;
+      text-align: center;
+      color: #77778b;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 15px;
+      background: white;
+      color: #77778b;
+      margin-top: 60px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 600px) {
+      header {
+        padding: 18px 5%;
+      }
+
+      .hero {
+        padding: 35px 7%;
+      }
+
+      .titulo-seccion h2 {
+        font-size: 25px;
+      }
+
+      .buscador {
+        max-width: none;
+      }
+
+      .producto img {
+        height: 210px;
+      }
     }
   </style>
 </head>
+
 <body>
+
   <header>
-    <h1>Mi catálogo</h1>
-    <p>Conoce nuestros productos</p>
+    <div class="logo">Mi <span>Catálogo ✦</span></div>
+    <a class="contacto" id="whatsapp-header"
+       href="https://wa.me/521XXXXXXXXXX" target="_blank"
+       rel="noopener">Contactar por WhatsApp</a>
   </header>
 
+  <section class="hero">
+    <span class="etiqueta">✨ DESCUBRE ALGO NUEVO</span>
+    <h1>Encuentra eso que estabas buscando.</h1>
+    <p>Conoce nuestros productos, descubre tus favoritos y contáctanos para realizar tu pedido.</p>
+  </section>
+
   <main>
-    <input id="buscar" placeholder="Buscar productos..."
-           oninput="filtrar()">
-    <div id="productos" class="productos"></div>
+    <section class="titulo-seccion">
+      <div>
+        <h2>Nuestros productos</h2>
+        <p>Explora el catálogo y encuentra tu próximo favorito.</p>
+      </div>
+
+      <input
+        type="search"
+        id="busqueda"
+        class="buscador"
+        placeholder="🔎 Buscar un producto..."
+        aria-label="Buscar productos">
+    </section>
+
+    <div class="filtros" id="filtros">
+      <button class="filtro activo" data-categoria="todos">Todos</button>
+      <button class="filtro" data-categoria="novedades">Novedades</button>
+      <button class="filtro" data-categoria="destacados">Destacados</button>
+    </div>
+
+    <section class="productos" id="productos">
+
+      <!-- PRODUCTO 1: cambia nombre, descripción, precio e imagen -->
+      <article class="producto" data-categoria="novedades">
+        <img
+          src="https://images.unsplash.com/photo-1490312278390-ab64016e0aa9?auto=format&fit=crop&w=700&q=80"
+          alt="Artículo de estilo moderno"
+          loading="lazy">
+        <div class="producto-info">
+          <span class="categoria">Novedad</span>
+          <h3>Producto de ejemplo 1</h3>
+          <p class="descripcion">Una opción especial para complementar tu estilo.</p>
+          <div class="precio">$299.00 MXN</div>
+          <a class="pedir" href="#" data-producto="Producto de ejemplo 1">Consultar por WhatsApp</a>
+        </div>
+      </article>
+
+      <!-- PRODUCTO 2 -->
+      <article class="producto" data-categoria="destacados">
+        <img
+          src="https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?auto=format&fit=crop&w=700&q=80"
+          alt="Producto de diseño contemporáneo"
+          loading="lazy">
+        <div class="producto-info">
+          <span class="categoria">Destacado</span>
+          <h3>Producto de ejemplo 2</h3>
+          <p class="descripcion">Diseño atractivo para quienes buscan algo diferente.</p>
+          <div class="precio">$450.00 MXN</div>
+          <a class="pedir" href="#" data-producto="Producto de ejemplo 2">Consultar por WhatsApp</a>
+        </div>
+      </article>
+
+      <!-- PRODUCTO 3 -->
+      <article class="producto" data-categoria="novedades">
+        <img
+          src="https://images.unsplash.com/photo-1490312278390-ab64016e0aa9?auto=format&fit=crop&w=700&q=80"
+          alt="Artículo para descubrir"
+          loading="lazy">
+        <div class="producto-info">
+          <span class="categoria">Novedad</span>
+          <h3>Producto de ejemplo 3</h3>
+          <p class="descripcion">Una alternativa para descubrir y elegir tu favorita.</p>
+          <div class="precio">$199.00 MXN</div>
+          <a class="pedir" href="#" data-producto="Producto de ejemplo 3">Consultar por WhatsApp</a>
+        </div>
+      </article>
+
+    </section>
+
+    <p class="sin-resultados" id="sin-resultados">
+      No encontramos productos con esa búsqueda.
+    </p>
   </main>
 
+  <footer>
+    <p>Gracias por visitar nuestro catálogo 💜</p>
+    <p>Para precios, disponibilidad y pedidos, contáctanos por WhatsApp.</p>
+  </footer>
+
   <script>
-    const inventario = [
-      {
-        nombre: "Producto de ejemplo 1",
-        codigo: "PROD-001",
-        precio: 199,
-        imagen: "https://placehold.co/400x300?text=Producto+1"
-      },
-      {
-        nombre: "Producto de ejemplo 2",
-        codigo: "PROD-002",
-        precio: 299,
-        imagen: "https://placehold.co/400x300?text=Producto+2"
-      },
-      {
-        nombre: "Producto de ejemplo 3",
-        codigo: "PROD-003",
-        precio: 399,
-        imagen: "https://placehold.co/400x300?text=Producto+3"
-      }
-    ];
+    // CAMBIA ESTE VALOR POR TU NÚMERO DE WHATSAPP.
+    // Usa código de país y número, sin +, espacios ni guiones.
+    const numeroWhatsApp = "521XXXXXXXXXX";
 
-    function filtrar() {
-      const busqueda = document.getElementById("buscar")
-        .value.toLowerCase();
+    document.getElementById("whatsapp-header").href =
+      "https://wa.me/" + numeroWhatsApp;
 
-      const resultados = inventario.filter(p =>
-        p.nombre.toLowerCase().includes(busqueda) ||
-        p.codigo.toLowerCase().includes(busqueda)
-      );
+    document.querySelectorAll(".pedir").forEach(function(boton) {
+      const producto = boton.dataset.producto;
+      const mensaje = "Hola, me interesa el producto: " + producto;
+      boton.href = "https://wa.me/" + numeroWhatsApp +
+        "?text=" + encodeURIComponent(mensaje);
+      boton.target = "_blank";
+      boton.rel = "noopener";
+    });
 
-      document.getElementById("productos").innerHTML =
-        resultados.map(p => `
-          <article class="producto">
-            <img src="${p.imagen}" alt="${p.nombre}">
-            <h3>${p.nombre}</h3>
-            <p>Código: ${p.codigo}</p>
-            <p class="precio">$${p.precio.toLocaleString("es-MX", {
-              minimumFractionDigits: 2
-            })} MXN</p>
-          </article>
-        `).join("");
+    let categoriaActual = "todos";
+
+    function filtrarProductos() {
+      const busqueda = document.getElementById("busqueda")
+        .value.toLowerCase().trim();
+
+      let visibles = 0;
+
+      document.querySelectorAll(".producto").forEach(function(producto) {
+        const texto = producto.innerText.toLowerCase();
+        const categoria = producto.dataset.categoria;
+
+        const coincideTexto = texto.includes(busqueda);
+        const coincideCategoria =
+          categoriaActual === "todos" || categoria === categoriaActual;
+
+        const mostrar = coincideTexto && coincideCategoria;
+
+        producto.style.display = mostrar ? "" : "none";
+
+        if (mostrar) visibles++;
+      });
+
+      document.getElementById("sin-resultados").style.display =
+        visibles === 0 ? "block" : "none";
     }
 
-    filtrar();
+    document.getElementById("busqueda")
+      .addEventListener("input", filtrarProductos);
+
+    document.querySelectorAll(".filtro").forEach(function(boton) {
+      boton.addEventListener("click", function() {
+        document.querySelectorAll(".filtro").forEach(function(item) {
+          item.classList.remove("activo");
+        });
+
+        boton.classList.add("activo");
+        categoriaActual = boton.dataset.categoria;
+        filtrarProductos();
+      });
+    });
   </script>
+
 </body>
 </html>
+
